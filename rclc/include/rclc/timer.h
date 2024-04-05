@@ -51,6 +51,46 @@ rclc_timer_init_default(
   const uint64_t timeout_ns,
   const rcl_timer_callback_t callback);
 
+/**
+ *  Allocates an rcl_timer_t object on the heap and sets its values to zero.
+ *  Can be used as an alternative to rclc_timer_init_default() if no
+ *  stack allocation can or should be used.
+ *
+ *  * <hr>
+ * Attribute          | Adherence
+ * ------------------ | -------------
+ * Allocates Memory   | Yes
+ * Thread-Safe        | No
+ * Uses Atomics       | No
+ * Lock-Free          | No
+ *
+ * \return pointer to the timer (rcl_timer_t)
+ * \return NULL, if no memory could be allocated.
+ */
+RCLC_PUBLIC
+rcl_timer_t *
+rclc_alloc_zero_initialized_timer();
+
+/**
+ *  De-allocates an rcl_timer_t object and sets the pointer to NULL.
+ *
+ *  * <hr>
+ * Attribute          | Adherence
+ * ------------------ | -------------
+ * Allocates Memory   | Yes
+ * Thread-Safe        | No
+ * Uses Atomics       | No
+ * Lock-Free          | No
+ *
+ * \param[inout] timer a heap-allocated rcl_timer_t
+ * \return `RCL_RET_OK` if operation was successful
+ * \return `RCL_RET_INVALID_ARGUMENT` if any null pointer as argument
+ */
+RCLC_PUBLIC
+rcl_ret_t
+rclc_timer_free(
+  rcl_timer_t * timer);
+
 #if __cplusplus
 }
 #endif

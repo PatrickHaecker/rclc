@@ -107,6 +107,46 @@ rclc_subscription_init(
   const char * topic_name,
   const rmw_qos_profile_t * qos_profile);
 
+/**
+ *  Allocates an rcl_subscription_t object on the heap and sets its values to zero.
+ *  Can be used as an alternative to rcl_get_zero_initialized_subscription() if no
+ *  stack allocation can or should be used.
+ *
+ *  * <hr>
+ * Attribute          | Adherence
+ * ------------------ | -------------
+ * Allocates Memory   | Yes
+ * Thread-Safe        | No
+ * Uses Atomics       | No
+ * Lock-Free          | No
+ *
+ * \return pointer to the subscription (rcl_subscription_t)
+ * \return NULL, if no memory could be allocated.
+ */
+RCLC_PUBLIC
+rcl_subscription_t *
+rclc_alloc_zero_initialized_subscription();
+
+/**
+ *  De-allocates an rcl_subscription_t object and sets the pointer to NULL.
+ *
+ *  * <hr>
+ * Attribute          | Adherence
+ * ------------------ | -------------
+ * Allocates Memory   | Yes
+ * Thread-Safe        | No
+ * Uses Atomics       | No
+ * Lock-Free          | No
+ *
+ * \param[inout] subscription a heap-allocated rcl_subscription_t
+ * \return `RCL_RET_OK` if operation was successful
+ * \return `RCL_RET_INVALID_ARGUMENT` if any null pointer as argument
+ */
+RCLC_PUBLIC
+rcl_ret_t
+rclc_subscription_free(
+  rcl_subscription_t * subscription);
+
 #if __cplusplus
 }
 #endif

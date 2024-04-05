@@ -20,6 +20,8 @@
 #include <rcutils/logging_macros.h>
 #include <rmw/qos_profiles.h>
 
+#include <stdlib.h>
+
 rcl_ret_t
 rclc_publisher_init_default(
   rcl_publisher_t * publisher,
@@ -76,4 +78,25 @@ rclc_publisher_init(
     PRINT_RCLC_ERROR(rclc_publisher_init_best_effort, rcl_publisher_init);
   }
   return rc;
+}
+
+RCLC_PUBLIC
+rcl_publisher_t *
+rclc_publisher_alloc()
+{
+  rcl_publisher_t * publisher = (rcl_publisher_t *) malloc(sizeof(rcl_publisher_t));
+  RCL_CHECK_FOR_NULL_WITH_MSG(
+    publisher, "publisher is a null pointer", return publisher);
+  return publisher;
+}
+
+rcl_ret_t
+rclc_publisher_free(
+  rcl_publisher_t * publisher)
+{
+  RCL_CHECK_FOR_NULL_WITH_MSG(
+    publisher, "publisher is a null pointer", return RCL_RET_INVALID_ARGUMENT);
+  free(publisher);
+  publisher = NULL;
+  return RCL_RET_OK;
 }

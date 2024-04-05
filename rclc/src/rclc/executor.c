@@ -2119,3 +2119,24 @@ bool rclc_executor_trigger_always(rclc_executor_handle_t * handles, unsigned int
   RCLC_UNUSED(obj);
   return true;
 }
+
+rclc_executor_t *
+rclc_alloc_zero_initialized_executor()
+{
+  rclc_executor_t * executor = (rclc_executor_t *) malloc(sizeof(rclc_executor_t));
+  RCL_CHECK_FOR_NULL_WITH_MSG(
+    executor, "executor is a null pointer", return executor);
+  rclc_executor_t executor_stack = rclc_executor_get_zero_initialized_executor();
+  memcpy(executor, &executor_stack, sizeof(rclc_executor_t));
+  return executor;
+}
+
+rcl_ret_t
+rclc_executor_free(rclc_executor_t * executor)
+{
+  RCL_CHECK_FOR_NULL_WITH_MSG(
+    executor, "executor is a null pointer", return RCL_RET_INVALID_ARGUMENT);
+  free(executor);
+  executor = NULL;
+  return RCL_RET_OK;
+}

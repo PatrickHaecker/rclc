@@ -2804,3 +2804,11 @@ TEST_F(TestDefaultExecutor, executor_test_remove_guard_condition) {
   rc = rclc_executor_fini(&executor);
   EXPECT_EQ(RCL_RET_OK, rc) << rcl_get_error_string().str;
 }
+
+TEST(TestDefaultExecutor, rclc_alloc_zero_initialized_executor) {
+  // test heap allocation and freeing
+  rclc_executor_t * executor_heap = rclc_alloc_zero_initialized_executor();
+  EXPECT_NE(nullptr, executor_heap);
+  rcl_ret_t rc = rclc_executor_fini(executor_heap);
+  EXPECT_EQ(RCL_RET_OK, rc);
+}

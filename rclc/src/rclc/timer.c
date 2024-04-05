@@ -46,3 +46,24 @@ rclc_timer_init_default(
   }
   return rc;
 }
+
+rcl_timer_t *
+rclc_alloc_zero_initialized_timer()
+{
+  rcl_timer_t * timer = (rcl_timer_t *) malloc(sizeof(rcl_timer_t));
+  RCL_CHECK_FOR_NULL_WITH_MSG(
+    timer, "timer is a null pointer", return timer);
+  rcl_timer_t timer_stack = rcl_get_zero_initialized_timer();
+  memcpy(timer, &timer_stack, sizeof(rcl_timer_t));
+  return timer;
+}
+
+rcl_ret_t
+rclc_timer_free(rcl_timer_t * timer)
+{
+  RCL_CHECK_FOR_NULL_WITH_MSG(
+    timer, "timer is a null pointer", return RCL_RET_INVALID_ARGUMENT);
+  free(timer);
+  timer = NULL;
+  return RCL_RET_OK;
+}

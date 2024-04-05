@@ -151,3 +151,11 @@ TEST(Test, rclc_subscription_init_qos) {
   rc = rclc_support_fini(&support);
   EXPECT_EQ(RCL_RET_OK, rc);
 }
+
+TEST(Test, rclc_alloc_zero_initialized_subscription) {
+  // test heap allocation and freeing
+  rcl_subscription_t * subscription_heap = rclc_alloc_zero_initialized_subscription();
+  EXPECT_NE(nullptr, subscription_heap);
+  rcl_ret_t rc = rclc_subscription_free(subscription_heap);
+  EXPECT_EQ(RCL_RET_OK, rc);
+}

@@ -19,6 +19,8 @@
 #include <rcl/error_handling.h>
 #include <rcutils/logging_macros.h>
 
+#include <stdlib.h>
+
 rcl_ret_t
 rclc_node_init_default(
   rcl_node_t * node,
@@ -81,4 +83,25 @@ rclc_node_init_with_options(
     PRINT_RCLC_WARN(rclc_node_init_with_options, rcl_node_init);
   }
   return rc;
+}
+
+rcl_node_t *
+rclc_alloc_zero_initialized_node()
+{
+  rcl_node_t * node = (rcl_node_t *) malloc(sizeof(rcl_node_t));
+  RCL_CHECK_FOR_NULL_WITH_MSG(
+    node, "node is a null pointer", return node);
+  rcl_node_t node_stack = rcl_get_zero_initialized_node();
+  memcpy(node, &node_stack, sizeof(rcl_node_t));
+  return node;
+}
+
+rcl_ret_t
+rclc_node_free(rcl_node_t * node)
+{
+  RCL_CHECK_FOR_NULL_WITH_MSG(
+    node, "node is a null pointer", return RCL_RET_INVALID_ARGUMENT);
+  free(node);
+  node = NULL;
+  return RCL_RET_OK;
 }

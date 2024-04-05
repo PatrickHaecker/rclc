@@ -108,6 +108,44 @@ rclc_publisher_init(
   const char * topic_name,
   const rmw_qos_profile_t * qos_profile);
 
+/**
+ *  Allocates an rcl_publisher_t object on the heap.
+ *  Can be used as if no stack allocation can or should be used.
+ *
+ *  * <hr>
+ * Attribute          | Adherence
+ * ------------------ | -------------
+ * Allocates Memory   | Yes
+ * Thread-Safe        | No
+ * Uses Atomics       | No
+ * Lock-Free          | No
+ *
+ * \return pointer to a publisher (rcl_publisher_t)
+ * \return NULL, if no memory could be allocated.
+ */
+RCLC_PUBLIC
+rcl_publisher_t *
+rclc_publisher_alloc();
+
+/**
+ *  De-allocates an rcl_publisher_t object and sets the pointer to NULL.
+ *
+ *  * <hr>
+ * Attribute          | Adherence
+ * ------------------ | -------------
+ * Allocates Memory   | Yes
+ * Thread-Safe        | No
+ * Uses Atomics       | No
+ * Lock-Free          | No
+ *
+ * \param[inout] publisher a heap-allocated rcl_publisher_t
+ * \return `RCL_RET_OK` if operation was successful
+ * \return `RCL_RET_INVALID_ARGUMENT` if any null pointer as argument
+ */
+rcl_ret_t
+rclc_publisher_free(
+  rcl_publisher_t * publisher);
+
 #if __cplusplus
 }
 #endif

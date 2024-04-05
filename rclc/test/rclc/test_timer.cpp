@@ -56,3 +56,11 @@ TEST(Test, rclc_timer_init_default) {
   rc = rclc_support_fini(&support);
   EXPECT_EQ(RCL_RET_OK, rc);
 }
+
+TEST(Test, rclc_alloc_zero_initialized_timer) {
+  // test heap allocation and freeing
+  rcl_timer_t * timer_heap = rclc_alloc_zero_initialized_timer();
+  EXPECT_NE(nullptr, timer_heap);
+  rcl_ret_t rc = rclc_timer_free(timer_heap);
+  EXPECT_EQ(RCL_RET_OK, rc);
+}
