@@ -79,7 +79,7 @@ rclc_node_init_with_options(
   rcl_node_options_t * node_ops);
 
 /**
- *  Allocates an rcl_node_t object on the heap and sets its values to zero.
+ *  Allocates an rcl_node_t object and sets its values to zero.
  *  Can be used as an alternative to rcl_get_zero_initialized_node() if no
  *  stack allocation can or should be used.
  *
@@ -91,12 +91,13 @@ rclc_node_init_with_options(
  * Uses Atomics       | No
  * Lock-Free          | No
  *
+ * \param[in] allocator the rcl_allocator_t to be used
  * \return pointer to the node (rcl_node_t)
  * \return NULL, if no memory could be allocated.
  */
 RCLC_PUBLIC
 rcl_node_t *
-rclc_alloc_zero_initialized_node();
+rclc_alloc_zero_initialized_node(const rcl_allocator_t * const allocator);
 
 /**
  *  De-allocates an rcl_node_t object and sets the pointer to NULL.
@@ -110,13 +111,15 @@ rclc_alloc_zero_initialized_node();
  * Lock-Free          | No
  *
  * \param[inout] node a heap-allocated rcl_node_t
+ * \param[in] allocator the rcl_allocator_t to be used
  * \return `RCL_RET_OK` if operation was successful
  * \return `RCL_RET_INVALID_ARGUMENT` if any null pointer as argument
  */
 RCLC_PUBLIC
 rcl_ret_t
 rclc_node_free(
-  rcl_node_t * node);
+  rcl_node_t * node,
+  const rcl_allocator_t * const allocator);
 
 #if __cplusplus
 }

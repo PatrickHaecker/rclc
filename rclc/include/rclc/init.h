@@ -105,8 +105,8 @@ rclc_support_fini(
   rclc_support_t * support);
 
 /**
- *  Allocates the rclc_support_t object on the heap.
- *  Can be used as if no stack allocation can or should be used.
+ *  Allocates memory for an rclc_support_t object.
+ *  Can be used if no stack allocation can or should be used.
  *
  *  * <hr>
  * Attribute          | Adherence
@@ -116,12 +116,13 @@ rclc_support_fini(
  * Uses Atomics       | No
  * Lock-Free          | No
  *
+ * \param[in] allocator the rcl_allocator_t to be used
  * \return pointer to the support (rclc_support_t)
  * \return NULL, if no memory could be allocated.
  */
 RCLC_PUBLIC
 rclc_support_t *
-rclc_support_alloc();
+rclc_support_alloc(const rcl_allocator_t * const allocator);
 
 /**
  *  Return the pointer to the context member of struct support.
@@ -154,12 +155,14 @@ rclc_get_context(
  * Lock-Free          | No
  *
  * \param[inout] support a heap-allocated rclc_support_t
+ * \param[in] allocator the rcl_allocator_t to be used
  * \return `RCL_RET_OK` if operation was successful
  * \return `RCL_RET_INVALID_ARGUMENT` if any null pointer as argument
  */
 rcl_ret_t
 rclc_support_free(
-  rclc_support_t * support);
+  rclc_support_t * support,
+  const rcl_allocator_t * const allocator);
 
 
 /**

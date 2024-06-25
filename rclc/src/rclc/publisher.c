@@ -82,9 +82,10 @@ rclc_publisher_init(
 
 RCLC_PUBLIC
 rcl_publisher_t *
-rclc_publisher_alloc()
+rclc_publisher_alloc(const rcl_allocator_t * const allocator)
 {
-  rcl_publisher_t * publisher = (rcl_publisher_t *) malloc(sizeof(rcl_publisher_t));
+  rcl_publisher_t * publisher = (rcl_publisher_t *)
+    allocator->allocate(sizeof(rcl_publisher_t), allocator->state);
   RCL_CHECK_FOR_NULL_WITH_MSG(
     publisher, "publisher is a null pointer", return publisher);
   return publisher;
@@ -92,11 +93,11 @@ rclc_publisher_alloc()
 
 rcl_ret_t
 rclc_publisher_free(
-  rcl_publisher_t * publisher)
+  rcl_publisher_t * publisher, const rcl_allocator_t * const allocator)
 {
   RCL_CHECK_FOR_NULL_WITH_MSG(
     publisher, "publisher is a null pointer", return RCL_RET_INVALID_ARGUMENT);
-  free(publisher);
+  allocator->deallocate(publisher, allocator->state);
   publisher = NULL;
   return RCL_RET_OK;
 }

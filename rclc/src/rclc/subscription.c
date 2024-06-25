@@ -81,22 +81,23 @@ rclc_subscription_init(
 }
 
 rcl_subscription_t *
-rclc_alloc_zero_initialized_subscription()
+rclc_alloc_zero_initialized_subscription(const rcl_allocator_t * const allocator)
 {
-  rcl_subscription_t * subscription = (rcl_subscription_t *) malloc(sizeof(rcl_subscription_t));
+  rcl_subscription_t * subscription = (rcl_subscription_t *)
+    allocator->allocate(sizeof(rcl_subscription_t), allocator->state);
   RCL_CHECK_FOR_NULL_WITH_MSG(
     subscription, "subscription is a null pointer", return subscription);
-  rcl_subscription_t subscription_stack = rcl_get_zero_initialized_subscription();
-  memcpy(subscription, &subscription_stack, sizeof(rcl_subscription_t));
+  *subscription = rcl_get_zero_initialized_subscription();
   return subscription;
 }
 
 rcl_ret_t
-rclc_subscription_free(rcl_subscription_t * subscription)
+rclc_subscription_free(
+  rcl_subscription_t * subscription, const rcl_allocator_t * const allocator)
 {
   RCL_CHECK_FOR_NULL_WITH_MSG(
     subscription, "subscription is a null pointer", return RCL_RET_INVALID_ARGUMENT);
-  free(subscription);
+  allocator->deallocate(subscription, allocator->state);
   subscription = NULL;
   return RCL_RET_OK;
 }

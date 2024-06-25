@@ -87,17 +87,17 @@ TEST(Test, rclc_support_fini) {
 
 TEST(Test, rclc_support_alloc) {
   // test heap allocation and freeing
-  rclc_support_t * support_heap = rclc_support_alloc();
-  EXPECT_NE(nullptr, support_heap);
-  rcl_ret_t rc = rclc_support_free(support_heap);
+  rcl_allocator_t allocator = rcl_get_default_allocator();
+  rclc_support_t * support = rclc_support_alloc(&allocator);
+  EXPECT_NE(nullptr, support);
+  rcl_ret_t rc = rclc_support_free(support, &allocator);
   EXPECT_EQ(RCL_RET_OK, rc);
 }
 
 TEST(Test, rclc_get_context) {
   rclc_support_t support;
-  rcl_ret_t rc;
   rcl_allocator_t allocator = rcl_get_default_allocator();
-  rc = rclc_support_init(&support, 0, nullptr, &allocator);
+  rcl_ret_t rc = rclc_support_init(&support, 0, nullptr, &allocator);
   EXPECT_EQ(RCL_RET_OK, rc);
 
   rcl_context_t *context = rclc_get_context(&support);

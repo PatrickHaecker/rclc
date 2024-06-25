@@ -59,8 +59,9 @@ TEST(Test, rclc_timer_init_default) {
 
 TEST(Test, rclc_alloc_zero_initialized_timer) {
   // test heap allocation and freeing
-  rcl_timer_t * timer_heap = rclc_alloc_zero_initialized_timer();
-  EXPECT_NE(nullptr, timer_heap);
-  rcl_ret_t rc = rclc_timer_free(timer_heap);
+  const rcl_allocator_t allocator = rcl_get_default_allocator();
+  rcl_timer_t * timer = rclc_alloc_zero_initialized_timer(&allocator);
+  EXPECT_NE(nullptr, timer);
+  rcl_ret_t rc = rclc_timer_free(timer, &allocator);
   EXPECT_EQ(RCL_RET_OK, rc);
 }

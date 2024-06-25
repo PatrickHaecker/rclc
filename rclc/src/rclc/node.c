@@ -86,22 +86,22 @@ rclc_node_init_with_options(
 }
 
 rcl_node_t *
-rclc_alloc_zero_initialized_node()
+rclc_alloc_zero_initialized_node(const rcl_allocator_t * const allocator)
 {
-  rcl_node_t * node = (rcl_node_t *) malloc(sizeof(rcl_node_t));
+  rcl_node_t * node = (rcl_node_t *)
+    allocator->allocate(sizeof(rcl_node_t), allocator->state);
   RCL_CHECK_FOR_NULL_WITH_MSG(
     node, "node is a null pointer", return node);
-  rcl_node_t node_stack = rcl_get_zero_initialized_node();
-  memcpy(node, &node_stack, sizeof(rcl_node_t));
+  *node = rcl_get_zero_initialized_node();
   return node;
 }
 
 rcl_ret_t
-rclc_node_free(rcl_node_t * node)
+rclc_node_free(rcl_node_t * node, const rcl_allocator_t * const allocator)
 {
   RCL_CHECK_FOR_NULL_WITH_MSG(
     node, "node is a null pointer", return RCL_RET_INVALID_ARGUMENT);
-  free(node);
+  allocator->deallocate(node, allocator->state);
   node = NULL;
   return RCL_RET_OK;
 }

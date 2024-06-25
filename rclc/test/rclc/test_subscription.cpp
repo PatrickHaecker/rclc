@@ -154,8 +154,9 @@ TEST(Test, rclc_subscription_init_qos) {
 
 TEST(Test, rclc_alloc_zero_initialized_subscription) {
   // test heap allocation and freeing
-  rcl_subscription_t * subscription_heap = rclc_alloc_zero_initialized_subscription();
-  EXPECT_NE(nullptr, subscription_heap);
-  rcl_ret_t rc = rclc_subscription_free(subscription_heap);
+  const rcl_allocator_t allocator = rcl_get_default_allocator();
+  rcl_subscription_t * subscription = rclc_alloc_zero_initialized_subscription(&allocator);
+  EXPECT_NE(nullptr, subscription);
+  rcl_ret_t rc = rclc_subscription_free(subscription, &allocator);
   EXPECT_EQ(RCL_RET_OK, rc);
 }

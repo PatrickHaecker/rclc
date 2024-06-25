@@ -109,20 +109,21 @@ rclc_support_fini(rclc_support_t * support)
 }
 
 rclc_support_t *
-rclc_support_alloc()
+rclc_support_alloc(const rcl_allocator_t * const allocator)
 {
-  rclc_support_t * support = (rclc_support_t *) malloc(sizeof(rclc_support_t));
+  rclc_support_t * support = (rclc_support_t *)
+    allocator->allocate(sizeof(rclc_support_t), allocator->state);
   RCL_CHECK_FOR_NULL_WITH_MSG(
     support, "support is a null pointer", return support);
   return support;
 }
 
 rcl_ret_t
-rclc_support_free(rclc_support_t * support)
+rclc_support_free(rclc_support_t * support, const rcl_allocator_t * const allocator)
 {
   RCL_CHECK_FOR_NULL_WITH_MSG(
     support, "support is a null pointer", return RCL_RET_INVALID_ARGUMENT);
-  free(support);
+  allocator->deallocate(support, allocator->state);
   support = NULL;
   return RCL_RET_OK;
 }
@@ -140,10 +141,11 @@ rclc_get_context(rclc_support_t * support)
 rcl_allocator_t *
 rclc_allocator_alloc_default()
 {
-  rcl_allocator_t * allocator = (rcl_allocator_t *) malloc(sizeof(rcutils_allocator_t));
+  rcl_allocator_t allocator_stack = rcl_get_default_allocator();
+  rcl_allocator_t * allocator = (rcl_allocator_t *)
+    allocator_stack.allocate(sizeof(rcutils_allocator_t), allocator_stack.state);
   RCL_CHECK_FOR_NULL_WITH_MSG(
     allocator, "allocator is a null pointer", return allocator);
-  rcl_allocator_t allocator_stack = rcl_get_default_allocator();
   memcpy(allocator, &allocator_stack, sizeof(rcl_allocator_t));
   return allocator;
 }
@@ -153,7 +155,7 @@ rclc_allocator_free(rcl_allocator_t * allocator)
 {
   RCL_CHECK_FOR_NULL_WITH_MSG(
     allocator, "allocator is a null pointer", return RCL_RET_INVALID_ARGUMENT);
-  free(allocator);
+  allocator->deallocate(allocator, allocator->state);
   allocator = NULL;
   return RCL_RET_OK;
 }

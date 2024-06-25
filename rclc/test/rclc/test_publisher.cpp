@@ -157,8 +157,9 @@ TEST(Test, rclc_publisher_init_qos) {
 
 TEST(Test, rclc_publisher_alloc) {
   // test heap allocation and freeing
-  rcl_publisher_t * publisher_heap = rclc_publisher_alloc();
-  EXPECT_NE(nullptr, publisher_heap);
-  rcl_ret_t rc = rclc_publisher_free(publisher_heap);
+  const rcl_allocator_t allocator = rcl_get_default_allocator();
+  rcl_publisher_t * publisher = rclc_publisher_alloc(&allocator);
+  EXPECT_NE(nullptr, publisher);
+  rcl_ret_t rc = rclc_publisher_free(publisher, &allocator);
   EXPECT_EQ(RCL_RET_OK, rc);
 }
