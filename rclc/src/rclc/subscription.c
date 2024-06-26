@@ -98,6 +98,5 @@ rclc_subscription_free(
   RCL_CHECK_FOR_NULL_WITH_MSG(
     subscription, "subscription is a null pointer", return RCL_RET_INVALID_ARGUMENT);
   allocator->deallocate(subscription, allocator->state);
-  subscription = NULL;
   return RCL_RET_OK;
 }

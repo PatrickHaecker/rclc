@@ -130,7 +130,7 @@ rclc_publisher_alloc(
   const rcl_allocator_t * const allocator);
 
 /**
- *  De-allocates an rcl_publisher_t object and sets the pointer to NULL.
+ *  De-allocates an rcl_publisher_t object.
  *
  *  * <hr>
  * Attribute          | Adherence

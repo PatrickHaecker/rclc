@@ -102,6 +102,5 @@ rclc_node_free(rcl_node_t * node, const rcl_allocator_t * const allocator)
   RCL_CHECK_FOR_NULL_WITH_MSG(
     node, "node is a null pointer", return RCL_RET_INVALID_ARGUMENT);
   allocator->deallocate(node, allocator->state);
-  node = NULL;
   return RCL_RET_OK;
 }

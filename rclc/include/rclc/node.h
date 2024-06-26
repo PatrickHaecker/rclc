@@ -100,7 +100,7 @@ rcl_node_t *
 rclc_alloc_zero_initialized_node(const rcl_allocator_t * const allocator);
 
 /**
- *  De-allocates an rcl_node_t object and sets the pointer to NULL.
+ *  De-allocates an rcl_node_t object.
  *
  *  * <hr>
  * Attribute          | Adherence

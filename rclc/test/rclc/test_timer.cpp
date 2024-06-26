@@ -64,4 +64,5 @@ TEST(Test, rclc_alloc_zero_initialized_timer) {
   EXPECT_NE(nullptr, timer);
   rcl_ret_t rc = rclc_timer_free(timer, &allocator);
   EXPECT_EQ(RCL_RET_OK, rc);
+  timer = nullptr;
 }

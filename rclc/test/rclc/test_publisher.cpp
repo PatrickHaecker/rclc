@@ -162,4 +162,5 @@ TEST(Test, rclc_publisher_alloc) {
   EXPECT_NE(nullptr, publisher);
   rcl_ret_t rc = rclc_publisher_free(publisher, &allocator);
   EXPECT_EQ(RCL_RET_OK, rc);
+  publisher = nullptr;
 }

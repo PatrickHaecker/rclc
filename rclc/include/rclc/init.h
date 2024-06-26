@@ -144,7 +144,7 @@ rclc_get_context(
   rclc_support_t * support);
 
 /**
- *  De-allocates the rclc_support_t object and sets the pointer to NULL.
+ *  De-allocates an rclc_support_t object.
  *
  *  * <hr>
  * Attribute          | Adherence
@@ -166,8 +166,7 @@ rclc_support_free(
 
 
 /**
- *  Allocates the rcl_allocator_t object on the heap and sets it with default
- *  values.
+ *  Allocates the rcl_allocator_t object and sets it to default values.
  *  Can be used as an alternative to rcl_get_default_allocator() if no
  *  stack allocation can or should be used.
  *
@@ -187,7 +186,7 @@ rcl_allocator_t *
 rclc_allocator_alloc_default();
 
 /**
- *  De-allocates the rcl_allocator_t object and sets the pointer to NULL.
+ *  De-allocates an rcl_allocator_t object.
  *
  *  * <hr>
  * Attribute          | Adherence

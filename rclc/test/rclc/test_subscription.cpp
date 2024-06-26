@@ -159,4 +159,5 @@ TEST(Test, rclc_alloc_zero_initialized_subscription) {
   EXPECT_NE(nullptr, subscription);
   rcl_ret_t rc = rclc_subscription_free(subscription, &allocator);
   EXPECT_EQ(RCL_RET_OK, rc);
+  subscription = nullptr;
 }

@@ -64,6 +64,5 @@ rclc_timer_free(rcl_timer_t * timer, const rcl_allocator_t * const allocator)
   RCL_CHECK_FOR_NULL_WITH_MSG(
     timer, "timer is a null pointer", return RCL_RET_INVALID_ARGUMENT);
   allocator->deallocate(timer, allocator->state);
-  timer = NULL;
   return RCL_RET_OK;
 }

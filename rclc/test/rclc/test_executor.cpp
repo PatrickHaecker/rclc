@@ -2812,4 +2812,6 @@ TEST(TestDefaultExecutor, rclc_alloc_zero_initialized_executor) {
   EXPECT_NE(nullptr, executor);
   rcl_ret_t rc = rclc_executor_fini(executor);
   EXPECT_EQ(RCL_RET_OK, rc);
+  rclc_executor_free(executor);
+  executor = nullptr;
 }

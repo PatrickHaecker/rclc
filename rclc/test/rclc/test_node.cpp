@@ -121,4 +121,5 @@ TEST(Test, rclc_alloc_zero_initialized_node) {
   EXPECT_NE(nullptr, node);
   rcl_ret_t rc = rclc_node_free(node, &allocator);
   EXPECT_EQ(RCL_RET_OK, rc);
+  node = nullptr;
 }

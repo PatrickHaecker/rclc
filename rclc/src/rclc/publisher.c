@@ -98,6 +98,5 @@ rclc_publisher_free(
   RCL_CHECK_FOR_NULL_WITH_MSG(
     publisher, "publisher is a null pointer", return RCL_RET_INVALID_ARGUMENT);
   allocator->deallocate(publisher, allocator->state);
-  publisher = NULL;
   return RCL_RET_OK;
 }

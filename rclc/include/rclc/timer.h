@@ -75,7 +75,7 @@ rclc_alloc_zero_initialized_timer(
 );
 
 /**
- *  De-allocates an rcl_timer_t object and sets the pointer to NULL.
+ *  De-allocates an rcl_timer_t object.
  *
  *  * <hr>
  * Attribute          | Adherence

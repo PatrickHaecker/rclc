@@ -1003,7 +1003,7 @@ rclc_executor_t *
 rclc_alloc_zero_initialized_executor(const rcl_allocator_t * const allocator);
 
 /**
- *  De-allocates an rclc_executor_t object and sets the pointer to NULL.
+ *  De-allocates an rclc_executor_t object.
  *
  *  * <hr>
  * Attribute          | Adherence

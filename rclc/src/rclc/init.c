@@ -124,7 +124,6 @@ rclc_support_free(rclc_support_t * support, const rcl_allocator_t * const alloca
   RCL_CHECK_FOR_NULL_WITH_MSG(
     support, "support is a null pointer", return RCL_RET_INVALID_ARGUMENT);
   allocator->deallocate(support, allocator->state);
-  support = NULL;
   return RCL_RET_OK;
 }
 
@@ -156,7 +155,6 @@ rclc_allocator_free(rcl_allocator_t * allocator)
   RCL_CHECK_FOR_NULL_WITH_MSG(
     allocator, "allocator is a null pointer", return RCL_RET_INVALID_ARGUMENT);
   allocator->deallocate(allocator, allocator->state);
-  allocator = NULL;
   return RCL_RET_OK;
 }
 

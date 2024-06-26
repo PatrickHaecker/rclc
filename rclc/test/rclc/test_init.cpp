@@ -92,6 +92,7 @@ TEST(Test, rclc_support_alloc) {
   EXPECT_NE(nullptr, support);
   rcl_ret_t rc = rclc_support_free(support, &allocator);
   EXPECT_EQ(RCL_RET_OK, rc);
+  support = nullptr;
 }
 
 TEST(Test, rclc_get_context) {
@@ -110,8 +111,9 @@ TEST(Test, rclc_get_context) {
 
 TEST(Test, rclc_allocator_alloc_default) {
   // test heap allocation and freeing
-  rcl_allocator_t * allocator_heap = rclc_allocator_alloc_default();
-  EXPECT_NE(nullptr, allocator_heap);
-  rcl_ret_t rc = rclc_allocator_free(allocator_heap);
+  rcl_allocator_t * allocator = rclc_allocator_alloc_default();
+  EXPECT_NE(nullptr, allocator);
+  rcl_ret_t rc = rclc_allocator_free(allocator);
   EXPECT_EQ(RCL_RET_OK, rc);
+  allocator = nullptr;
 }

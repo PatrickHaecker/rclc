@@ -2137,6 +2137,5 @@ rclc_executor_free(rclc_executor_t * executor)
   RCL_CHECK_FOR_NULL_WITH_MSG(
     executor, "executor is a null pointer", return RCL_RET_INVALID_ARGUMENT);
   executor->allocator->deallocate(executor, executor->allocator->state);
-  executor = NULL;
   return RCL_RET_OK;
 }
