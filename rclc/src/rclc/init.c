@@ -136,6 +136,21 @@ rclc_get_context(rclc_support_t * support)
   return &(support->context);
 }
 
+rcl_allocator_t *
+rclc_get_allocator(rclc_support_t * support)
+{
+  RCL_CHECK_FOR_NULL_WITH_MSG(
+    support, "support is a null pointer", return (rcl_allocator_t *) NULL);
+  return support->allocator;
+}
+
+rcl_clock_t *
+rclc_get_clock(rclc_support_t * support)
+{
+  RCL_CHECK_FOR_NULL_WITH_MSG(
+    support, "support is a null pointer", return (rcl_clock_t *) NULL);
+  return &(support->clock);
+}
 
 rcl_allocator_t *
 rclc_allocator_alloc_default()

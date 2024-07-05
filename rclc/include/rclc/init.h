@@ -135,12 +135,50 @@ rclc_support_alloc(const rcl_allocator_t * const allocator);
  * Uses Atomics       | No
  * Lock-Free          | Yes
  *
- * \param[inout] support a heap-allocated rclc_support_t
+ * \param[inout] support an instance of type rclc_support_t
  * \return `RCL_RET_OK` if operation was successful
  * \return `RCL_RET_INVALID_ARGUMENT` if any null pointer as argument
  */
 rcl_context_t *
 rclc_get_context(
+  rclc_support_t * support);
+
+/**
+ *  Return the pointer to the allocator member of struct support.
+ *
+ *  * <hr>
+ * Attribute          | Adherence
+ * ------------------ | -------------
+ * Allocates Memory   | No
+ * Thread-Safe        | No
+ * Uses Atomics       | No
+ * Lock-Free          | Yes
+ *
+ * \param[inout] support an instance of type rclc_support_t
+ * \return `RCL_RET_OK` if operation was successful
+ * \return `RCL_RET_INVALID_ARGUMENT` if any null pointer as argument
+ */
+rcl_allocator_t *
+rclc_get_allocator(
+  rclc_support_t * support);
+
+/**
+ *  Return the pointer to the clock member of struct support.
+ *
+ *  * <hr>
+ * Attribute          | Adherence
+ * ------------------ | -------------
+ * Allocates Memory   | No
+ * Thread-Safe        | No
+ * Uses Atomics       | No
+ * Lock-Free          | Yes
+ *
+ * \param[inout] support an instance of type rclc_support_t
+ * \return `RCL_RET_OK` if operation was successful
+ * \return `RCL_RET_INVALID_ARGUMENT` if any null pointer as argument
+ */
+rcl_clock_t *
+rclc_get_clock(
   rclc_support_t * support);
 
 /**
